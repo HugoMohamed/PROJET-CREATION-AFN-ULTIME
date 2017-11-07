@@ -63,3 +63,20 @@ ensemble ens_union(ensemble a, ensemble b)
 
     return uni;
 }
+
+ensemble ens_intersection(ensemble a,ensemble b)
+{
+    int i;
+    ensemble inter;
+    inter[0] = 0;
+    for(i=1;i<a[0]+b[0];i++)
+    {
+	if(a[i] == 1 && b[i] == 1)
+	{
+	    inter[i] = 1;
+	    inter[0]++;
+	}
+
+    }
+    return inter;
+}
