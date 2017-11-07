@@ -7,3 +7,5 @@ ensemble ens_creerEnsemble(int tableau[],int tailleTableau);
 void ens_afficher(ensemble e);
 
 void ens_ajouterEnsemble(ensemble e, int element);
+
+ensemble ens_union(ensemble a, ensemble b);

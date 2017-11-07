@@ -45,3 +45,19 @@ void ens_ajouterEnsemble(ensemble e, int element)
 	    e[i] = 1;
     e[0]++;
 }
+
+
+ensemble ens_union(ensemble a, ensemble b)
+{
+    int i;
+    ensemble uni;
+    
+    for(i=1;i<(a[0]+b[0]);i++)
+    {
+	uni = a[i] + b[i];
+	if(uni[i] > 1)
+	    uni[i] = 1;
+    }
+
+    return uni;
+}
