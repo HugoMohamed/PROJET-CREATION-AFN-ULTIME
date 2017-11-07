@@ -1,13 +1,16 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #define TAILLE 1000
-typedef int ensemble[TAILLE]
+typedef int ensemble[TAILLE];
 
 // ens_creerEnsemble permet de creer un ensemble a partir d'un tableau d'entier, dont les entiers correspondent au éléments de l'ensemble.  
-ensemble ens_creerEnsemble(int tableau[],int tailleTableau);
+void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e);
 
 void ens_afficher(ensemble e);
 
-void ens_ajouterEnsemble(ensemble e, int element);
+void ens_ajouterElement(ensemble e, int element);
 
-ensemble ens_union(ensemble a, ensemble b);
+void ens_union(ensemble a, ensemble b, ensemble uni);
 
-ensemble ens_intersection(ensemble a, ensemble b);
+void ens_intersection(ensemble a, ensemble b, ensemble inter);

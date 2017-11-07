@@ -1,7 +1,7 @@
 #include "ensemble.h"
 
 #define TAILLE 1000
-typedef char* alphabet[TAILLE]
+typedef char* alphabet[TAILLE];
 
 typedef struct
 {

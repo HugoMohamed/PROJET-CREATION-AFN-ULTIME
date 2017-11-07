@@ -1,24 +1,18 @@
 #include "ensemble.h"
 
-ensemble ens_creerEnsemble(int tableau[],int tailleTableau)
+void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)
 {
     int i;
-    ensemble e;
     e[0]=0;
   
-    for(i=1;i<tailleTableau;i++)
+    for(i=0;i<tailleTableau;i++)
     {
-	if(tableau[i] == i)
-	{
-	    e[i] = 1;
-	    e[0]++;
-	}
-	else
-	{
-	    e[i]=0;
-	}
+	e[tableau[i]] = 1;
+	e[0]++;
+
+	if(e[i+1] != 1)
+	    e[i+1] = 0;
     }
-    return e;
 }
 
 
@@ -26,57 +20,50 @@ void ens_afficher(ensemble e)
 {
     int i;
 
-    for(i=1;i<e[0];i++)
+    for(i=1;i<=e[0];i++)
     {
 	if(e[i] == 1)
 	{
-	    printf("%d ",i);
+	    fprintf(stdout,"%d ",i);
 	}
     }
+    fprintf(stdout,"\n");
 }
 
 
-void ens_ajouterEnsemble(ensemble e, int element)
+void ens_ajouterElement(ensemble e, int element)
 {
-    int i;
-
-    for(i=0;i<e[0];i++)
-	if(i == element)
-	    e[i] = 1;
+    e[element]=1;
     e[0]++;
 }
 
 
-ensemble ens_union(ensemble a, ensemble b)
+void ens_union(ensemble a, ensemble b, ensemble uni)
 {
     int i;
-    ensemble uni;
     uni[0] = 0;
     
-    for(i=1;i<(a[0]+b[0]);i++)
+    for(i=1;i<(a[0]+b[0])+2;i++)
     {
-	uni = a[i] + b[i];
+	uni[i] = a[i] + b[i];
 	if(uni[i] > 1)
 	    uni[i] = 1;
 	uni[0] += uni[i];
     }
-
-    return uni;
 }
 
-ensemble ens_intersection(ensemble a,ensemble b)
+void ens_intersection(ensemble a,ensemble b, ensemble inter)
 {
     int i;
-    ensemble inter;
     inter[0] = 0;
-    for(i=1;i<a[0]+b[0];i++)
+    
+    for(i=1;i<(a[0]+b[0])+2;i++)
     {
-	if(a[i] == 1 && b[i] == 1)
+	if(a[i] && b[i])
 	{
 	    inter[i] = 1;
-	    inter[0]++;
 	}
-
+	
+	inter[0] += inter[i];
     }
-    return inter;
 }
