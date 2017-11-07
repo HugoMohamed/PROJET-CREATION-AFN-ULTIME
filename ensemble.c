@@ -34,3 +34,14 @@ void ens_afficher(ensemble e)
 	}
     }
 }
+
+
+void ens_ajouterEnsemble(ensemble e, int element)
+{
+    int i;
+
+    for(i=0;i<e[0];i++)
+	if(i == element)
+	    e[i] = 1;
+    e[0]++;
+}
