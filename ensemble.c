@@ -57,6 +57,7 @@ ensemble ens_union(ensemble a, ensemble b)
 	uni = a[i] + b[i];
 	if(uni[i] > 1)
 	    uni[i] = 1;
+	uni[0] += uni[i];
     }
 
     return uni;
