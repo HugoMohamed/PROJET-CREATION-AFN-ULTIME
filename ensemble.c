@@ -2,7 +2,7 @@
 
 void ens_ensemble(int tableau[],int tailleTableau)
 {
-  int i, int taille = 0;
+  int i;
   ensemble e;
   e[0]=0;
   
