@@ -51,6 +51,7 @@ ensemble ens_union(ensemble a, ensemble b)
 {
     int i;
     ensemble uni;
+    uni[0] = 0;
     
     for(i=1;i<(a[0]+b[0]);i++)
     {
