@@ -9,3 +9,5 @@ void ens_afficher(ensemble e);
 void ens_ajouterEnsemble(ensemble e, int element);
 
 ensemble ens_union(ensemble a, ensemble b);
+
+ensemble ens_intersection(ensemble a, ensemble b);
