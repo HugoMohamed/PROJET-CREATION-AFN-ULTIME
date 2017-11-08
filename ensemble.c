@@ -18,13 +18,14 @@ void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)
 
 void ens_afficher(ensemble e)
 {
-    int i;
+  int i,j;
 
-    for(i=1;i<=e[0];i++)
+  for(i=1,j=0;j<=e[0];i++)
     {
 	if(e[i] == 1)
 	{
 	    fprintf(stdout,"%d ",i);
+	    j++;
 	}
     }
     fprintf(stdout,"\n");
@@ -54,16 +55,16 @@ void ens_union(ensemble a, ensemble b, ensemble uni)
 
 void ens_intersection(ensemble a,ensemble b, ensemble inter)
 {
-    int i;
+  int i,j;
     inter[0] = 0;
     
-    for(i=1;i<(a[0]+b[0])+2;i++)
+    for(i=1,j=0;j<(a[0]+b[0]);i++)
     {
 	if(a[i] && b[i])
 	{
 	    inter[i] = 1;
+	    inter[0] += inter[i];
+	    j++;
 	}
-	
-	inter[0] += inter[i];
     }
 }
