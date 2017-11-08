@@ -3,24 +3,25 @@
 void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)
 {
     int i;
-    e[0]=0;
   
-    for(i=0;i<tailleTableau;i++)
-    {
+    for(i=0;i<=tailleTableau;i++)
 	e[tableau[i]] = 1;
-	e[0]++;
-
-	if(e[i+1] != 1)
-	    e[i+1] = 0;
+    e[0]=0;
+    for(i=1;i<TAILLE;i++){
+	if(e[i] == 1)
+	    e[0]++;
+	if(e[i] != 1)
+	    e[i] = 0;
     }
+    
 }
 
 
 void ens_afficher(ensemble e)
 {
-  int i,j=0;
+    int i,j;
 
-  for(i=1;j<=e[0];i++)
+    for(i=1,j=0;j<e[0];i++)
     {
 	if(e[i] == 1)
 	{
@@ -41,33 +42,34 @@ void ens_ajouterElement(ensemble e, int element)
 
 void ens_union(ensemble a, ensemble b, ensemble uni)
 {
-    int i,j=1;
+    int i;
     uni[0] = 0;
     
-    for(i=1;j<(a[0]+b[0]);i++)
+    for(i=1;i<TAILLE;i++)
     {
-	uni[i] = a[i] + b[i];
-	if(uni[i] > 1)
+	if(a[i]==1 || b[i]==1)
 	{
 	    uni[i] = 1;
-	    j++;
+	    uni[0] ++;
+	  
 	}
-	uni[0] += uni[i];
+	else
+	    uni[i] = 0;
+
     }
 }
 
 void ens_intersection(ensemble a,ensemble b, ensemble inter)
 {
-  int i,j=1;
-  inter[0] = 0;
+    int i;
+    inter[0] = 0;
     
-    for(i=1;j<(a[0]+b[0]);i++)
+    for(i=1;i<TAILLE;i++)
     {
-	if(a[i] && b[i])
+	if(a[i]==1 && b[i]==1)
 	{
 	    inter[i] = 1;
-	    inter[0] += inter[i];
-	    j++;
+	    inter[0]++;
 	}
 	else
 	    inter[i]=0;
