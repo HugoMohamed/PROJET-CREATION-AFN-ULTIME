@@ -3,9 +3,10 @@
 int main(int argc, char *argv[])
 {
     int tab[TAILLE]={1,2,3};
-    int tabA[TAILLE] = {4,5,6};
-    int tabB[TAILLE] = {7,8,9};
-
+    int tabA[TAILLE] = {4,5,6,7,8,9};
+    int tabB[TAILLE] = {7,8,9,10,11,12};
+    int i;
+    
     ensemble e,a,b,uni,inter;
     
     ens_creerEnsemble(tab,4,e);
