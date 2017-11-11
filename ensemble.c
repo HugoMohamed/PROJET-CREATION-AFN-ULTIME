@@ -48,6 +48,12 @@ void ens_ajouterElement(ensemble e, int element)
 }
 
 
+int ens_existe(ensemble e, int element)
+{
+    return(e[element] == 1);
+}
+
+
 void ens_union(ensemble a, ensemble b, ensemble uni)
 {
     int i;
