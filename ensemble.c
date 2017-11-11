@@ -1,3 +1,11 @@
+/******************************************
+*
+* Nom du fichier : ensemble.c
+*
+* Description: gère les différentes fonctions liées au ensembles
+*
+******************************************/
+
 #include "ensemble.h"
 
 void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)

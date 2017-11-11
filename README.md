@@ -1,2 +1,5 @@
 # PROJET-CREATION-AFN-ULTIME
-Ceci est un truc (sympa ?) de langage formel
+
+[C][FR] Projet de langage formel L2 S3 Info
+
+Le but est de créer un programme permettant de déterminiser un AFN.
