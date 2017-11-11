@@ -22,5 +22,8 @@ typedef struct
 // Renvoie 1 si l'état en paramètre est puit et 0 sinon
 int afn_estPuit(afn a, int etat);
 
+// Emonde l'AFN a
+void afn_emonder(afn a);
+
 // Determinise l'AFN a
-int afn_determiniser(afn a, afn afd);
+void afn_determiniser(afn a);
