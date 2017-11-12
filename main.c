@@ -6,8 +6,10 @@ int main(int argc, char *argv[])
     int tabA[TAILLE] = {4,5,6,89};
     int tabB[TAILLE] = {6,7,8,9,12,89};
 
-    ensemble e,a,b,uni,inter;
-    
+    ensemble e,a,b,uni,inter,succ;
+
+    afn af;
+
     ens_creerEnsemble(tab,3,e);
     ens_afficher(e);
     
@@ -24,6 +26,10 @@ int main(int argc, char *argv[])
 
     ens_intersection(a,b,inter);
     ens_afficher(inter);
+
+    af = afn_initAfn();
+    afn_successeur(af,1,succ);
+    ens_afficher(succ);
     
     exit(0);
 } 

@@ -9,15 +9,18 @@
 
 #include "ensemble.h"
 
-#define TAILLE 1000
+//#define TAILLE 1000
 typedef char* alphabet[TAILLE];
 
 typedef struct
 {
-    ensemble transition[TAILLE][TAILLE];
+    int transition[TAILLE][TAILLE];
     ensemble initial;
     ensemble final;
 } afn;
+
+//Crée et remplis un afn
+afn afn_initAfn();
 
 // Renvoie 1 si l'état en paramètre est puit et 0 sinon
 int afn_estPuit(afn a, int etat);
@@ -33,3 +36,6 @@ void afn_emonder(afn a);
 
 // Determinise l'AFN a
 void afn_determiniser(afn a);
+
+//Calcule les successeurs d'un état
+void afn_successeur(afn a, int etat, ensemble succ);
