@@ -8,6 +8,14 @@
 
 #include "ensemble.h"
 
+
+void ens_initEnsembleVide(ensemble e)
+{
+    int i;
+    for(i=0;i<TAILLE;i++)
+	e[i] = 0;
+}
+
 void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)
 {
     int i;
@@ -88,4 +96,14 @@ void ens_intersection(ensemble a,ensemble b, ensemble inter)
 	else
 	    inter[i]=0;
     }
+}
+
+
+void ens_priveDe(ensemble a, ensemble b)
+{
+    int i;
+
+    for(i=0;i<TAILLE;i++)
+	if(a[b[i]] == 1)
+	    a[b[i]] = 0;
 }
