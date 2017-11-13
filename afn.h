@@ -14,7 +14,7 @@ typedef char* alphabet[TAILLE];
 
 typedef struct
 {
-    int transition[TAILLE][TAILLE];
+    char transition[TAILLE][TAILLE];
     ensemble initial;
     ensemble final;
 } afn;
