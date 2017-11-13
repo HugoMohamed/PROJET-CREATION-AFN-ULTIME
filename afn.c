@@ -91,6 +91,24 @@ void afn_successeur(afn a, int etat, ensemble succ)
 	    succ[i] = 0;
     }
 }
+
+
+void afn_predecesseur(afn a, int etat, ensemble pre)
+{
+    int i;
+    pre[0]=0;
+
+    for(i=1;i<TAILLE;i++)
+    {
+	if(a.transition[i][etat] > 0)
+	{
+	    pre[i] = 1;
+	    pre[0]++;
+	}
+	else
+	    pre[i] = 0;
+    }
+}
 	
 
 int afn_estPuit(afn a, int etat)
@@ -126,6 +144,25 @@ void afn_accessibles(afn a, ensemble accessible)
 
 void afn_coAccessibles(afn a, ensemble coAccessible)
 {
+    ensemble at,dt,pre;
+    int i,q;
+    
+    for(i=0;i<TAILLE;i++)
+	at[i] = a.final[i];
+    ens_initVide(dt); // états déjà traités
+
+    while(at[0] != 0)
+    {
+	q = ens_premierElement(at);
+	afn_predecesseur(a,q,pre);
+	ens_ajouterElement(dt,q);
+	ens_enleverElement(at,q);
+	ens_priveDe(pre,dt);
+	ens_union(at,pre,at);
+	
+    }
+    for(i=0;i<TAILLE;i++)
+	coAccessible[i] = dt[i];
 
 }
 
