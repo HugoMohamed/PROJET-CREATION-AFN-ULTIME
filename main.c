@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     int tabA[TAILLE] = {4,5,6,89};
     int tabB[TAILLE] = {6,7,8,9,12,89};
 
-    ensemble e,a,b,uni,inter,succ,acc;
+    ensemble e,a,b,uni,inter,succ,acc,coacc;
 
     afn af;
 
