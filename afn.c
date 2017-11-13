@@ -65,7 +65,7 @@ afn afn_initAfn()
     fprintf(stdout,"transitions p x q (entrer une valeur négative de p pour arrêter) :\n");
     do
     {
-	scanf("%d %d %d",&etat1,&lettre,&etat2);
+	scanf("%d %c %d",&etat1,&lettre,&etat2);
 	if(etat1 >= 0 && etat2 >=0 && lettre >= 0)
 	    a.transition[etat1][etat2] = lettre;
     }
