@@ -100,15 +100,28 @@ int afn_estPuit(afn a, int etat)
 
 
 void afn_accessibles(afn a, ensemble accessible)
-{/*
-    ensemble at,dt;
-  
-    ensemble at = a.initial; // états a traiter
-    ensemble dt = ens_initEnsembleVide(dejaTraiter); // états déjà traités
+{
+    ensemble at,dt,succ;
+    int i,p;
+    
+    for(i=0;i<TAILLE;i++)
+	at[i] = a.initial[i];
+    ens_initVide(dt); // états déjà traités
 
     while(at[0] != 0)
-    */
-	}
+    {
+	p = ens_premierElement(at);
+	afn_successeur(a,p,succ);
+	ens_ajouterElement(dt,p);
+	ens_enleverElement(at,p);
+	ens_priveDe(succ,dt);
+	ens_union(at,succ,at);
+	
+    }
+    for(i=0;i<TAILLE;i++)
+	accessible[i] = dt[i];
+    
+}
 
 
 void afn_coAccessibles(afn a, ensemble coAccessible)

@@ -9,7 +9,7 @@
 #include "ensemble.h"
 
 
-void ens_initEnsembleVide(ensemble e)
+void ens_initVide(ensemble e)
 {
     int i;
     for(i=0;i<TAILLE;i++)
@@ -53,6 +53,13 @@ void ens_ajouterElement(ensemble e, int element)
 {
     e[element]=1;
     e[0]++;
+}
+
+
+void ens_enleverElement(ensemble e, int element)
+{
+    e[element]=0;
+    e[0]--;
 }
 
 
@@ -110,4 +117,14 @@ void ens_priveDe(ensemble a, ensemble b)
 	    a[0]--;
 	}
     
+}
+
+int ens_premierElement(ensemble a)
+{
+    int i;
+
+    for(i=1;i<TAILLE;i++)
+	if(a[i] == 1)
+	    return i;
+    return 0;
 }

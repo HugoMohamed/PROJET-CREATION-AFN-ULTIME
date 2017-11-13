@@ -25,6 +25,9 @@ void ens_afficher(ensemble e);
 // Permet d'ajouter l'élément element à l'ensemble e
 void ens_ajouterElement(ensemble e, int element);
 
+//Permet d'enlever l'élément element de l'ensemble e
+void ens_enleverElement(ensemble e, int element);
+
 // Renvoie 1 si l'élément existe dans l'ensemble e et 0 sinon
 int ens_existe(ensemble e, int element);
 
@@ -36,3 +39,6 @@ void ens_intersection(ensemble a, ensemble b, ensemble inter);
 
 // Enlève dans a les éléments de b
 void ens_priveDe(ensemble a, ensemble b);
+
+//Renvoie le premier élement non nul
+int ens_premierElement(ensemble a);
