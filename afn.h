@@ -39,3 +39,6 @@ void afn_determiniser(afn a);
 
 //Calcule les successeurs d'un état
 void afn_successeur(afn a, int etat, ensemble succ);
+
+//Calcule les prédecesseurs d'un état
+void afn_predecesseur(afn a, int etat, ensemble pre);
