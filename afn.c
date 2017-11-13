@@ -62,7 +62,7 @@ afn afn_initAfn()
     while(etat1 >= 0);
     
     viderBuffer();
-    fprintf(stdout,"transition p x q (entrer une valeur négative de p pour arrêter:\n");
+    fprintf(stdout,"transitions p x q (entrer une valeur négative de p pour arrêter) :\n");
     do
     {
 	scanf("%d %d %d",&etat1,&lettre,&etat2);
@@ -100,14 +100,15 @@ int afn_estPuit(afn a, int etat)
 
 
 void afn_accessibles(afn a, ensemble accessible)
-{
-    /*
-      ensemble at = a.initial; // états a traiter
-      ensemble dt = ens_initVide(dejaTraiter); // états déjà traités
+{/*
+    ensemble at,dt;
+  
+    ensemble at = a.initial; // états a traiter
+    ensemble dt = ens_initEnsembleVide(dejaTraiter); // états déjà traités
 
-      while(at[0] != 0)
+    while(at[0] != 0)
     */
-}
+	}
 
 
 void afn_coAccessibles(afn a, ensemble coAccessible)

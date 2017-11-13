@@ -26,10 +26,13 @@ int main(int argc, char *argv[])
 
     ens_intersection(a,b,inter);
     ens_afficher(inter);
-
+    /*
     af = afn_initAfn();
     afn_successeur(af,1,succ);
     ens_afficher(succ);
+    */
+    ens_priveDe(a,b);
+    ens_afficher(a);
     
     exit(0);
 } 

@@ -1,10 +1,10 @@
 /******************************************
-*
-* Nom du fichier : ensemble.c
-*
-* Description: gère les différentes fonctions liées au ensembles
-*
-******************************************/
+ *
+ * Nom du fichier : ensemble.c
+ *
+ * Description: gère les différentes fonctions liées au ensembles
+ *
+ ******************************************/
 
 #include "ensemble.h"
 
@@ -104,6 +104,10 @@ void ens_priveDe(ensemble a, ensemble b)
     int i;
 
     for(i=0;i<TAILLE;i++)
-	if(a[b[i]] == 1)
-	    a[b[i]] = 0;
+	if(b[i] == 1 && a[i] == 1)
+	{
+	    a[i] = 0;
+	    a[0]--;
+	}
+    
 }
