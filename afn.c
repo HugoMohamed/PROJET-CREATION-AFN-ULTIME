@@ -109,12 +109,6 @@ void afn_predecesseur(afn a, int etat, ensemble pre)
 	    pre[i] = 0;
     }
 }
-	
-
-int afn_estPuit(afn a, int etat)
-{
-
-}
 
 
 void afn_accessibles(afn a, ensemble accessible)
@@ -166,10 +160,32 @@ void afn_coAccessibles(afn a, ensemble coAccessible)
 
 }
 
+// PAS SUR QUE CE SOIT UTILE EN FAIT
+char afn_existeTrans(afn a,int p,int q)
+{
+    if
+}
+    
 
 void afn_emonder(afn a)
 {
+    ensemble utile,acc,coacc;
+    char transUtile[TAILLE][TAILLE];
+    int i,j;
+    
+    afn_accessibles(a,acc);
+    afn_coAccessible(a,coacc);
 
+    ens_intersection(acc,coacc,utile); // L'ensemble des états utiles
+
+    ens_intersection(utile,a.initial,a.initial);
+    ens_intersection(utile,a.final,a.final);
+
+    for(i=1;i<[TAILLE];i++)
+    {
+	for(j=1;j<[TAILLE];j++)
+	{
+	    if(a.transition[i][j])
 }
 
 
@@ -177,3 +193,4 @@ void afn_determiniser(afn a)
 {
 
 }
+

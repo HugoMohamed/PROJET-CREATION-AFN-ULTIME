@@ -22,9 +22,6 @@ typedef struct
 //Crée et remplis un afn
 afn afn_initAfn();
 
-// Renvoie 1 si l'état en paramètre est puit et 0 sinon
-int afn_estPuit(afn a, int etat);
-
 // Calcul l'ensemble des états accessibles de a
 void afn_accessibles(afn a, ensemble accessible);
 
@@ -42,3 +39,6 @@ void afn_successeur(afn a, int etat, ensemble succ);
 
 //Calcule les prédecesseurs d'un état
 void afn_predecesseur(afn a, int etat, ensemble pre);
+
+// Renvoie l'étiquette de la transition de p vers q si elle existe et '0' sinon
+char afn_existeTrans(afn a,int p,int q);
