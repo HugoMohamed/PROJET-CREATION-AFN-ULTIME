@@ -40,5 +40,5 @@ void ens_intersection(ensemble a, ensemble b, ensemble inter);
 // Enlève dans a les éléments de b
 void ens_priveDe(ensemble a, ensemble b);
 
-//Renvoie le premier élement non nul
+//Renvoie le premier élement de a
 int ens_premierElement(ensemble a);
