@@ -41,5 +41,8 @@ int main(int argc, char *argv[])
     afn_accessibles(af,acc);
     ens_afficher(acc);
     
+    afn_coAccessibles(af,coacc);
+    ens_afficher(coacc);
+    
     exit(0);
 } 
