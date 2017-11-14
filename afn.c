@@ -25,7 +25,8 @@ void viderBuffer()
 afn afn_initAfn()
 {
     afn a;
-    int i,j,etat1,etat2,lettre;
+    int i,j,etat1,etat2;
+    char lettre;
     for(i=0;i<TAILLE;i++)
     {
 	a.initial[i] = 0;

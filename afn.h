@@ -42,3 +42,6 @@ void afn_predecesseur(afn a, int etat, ensemble pre);
 
 // Renvoie l'étiquette de la transition de p vers q si elle existe et '0' sinon
 char afn_existeTrans(afn a,int p,int q);
+
+// Renvoie 1 si le mot est reconnu par l'afn a
+int afn_estReconnu(afn a, char * mot);
