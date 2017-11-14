@@ -160,33 +160,26 @@ void afn_coAccessibles(afn a, ensemble coAccessible)
 	coAccessible[i] = dt[i];
 
 }
-
-// PAS SUR QUE CE SOIT UTILE EN FAIT
-char afn_existeTrans(afn a,int p,int q)
-{
-    if
-}
     
 
 void afn_emonder(afn a)
 {
     ensemble utile,acc,coacc;
-    char transUtile[TAILLE][TAILLE];
     int i,j;
     
     afn_accessibles(a,acc);
-    afn_coAccessible(a,coacc);
+    afn_coAccessibles(a,coacc);
 
     ens_intersection(acc,coacc,utile); // L'ensemble des états utiles
 
     ens_intersection(utile,a.initial,a.initial);
     ens_intersection(utile,a.final,a.final);
 
-    for(i=1;i<[TAILLE];i++)
-    {
-	for(j=1;j<[TAILLE];j++)
-	{
-	    if(a.transition[i][j])
+    // Calcul des transition émondée.
+    for(i=1;i<TAILLE;i++)
+	for(j=1;j<TAILLE;j++)
+	    if(!(a.transition[i][j] != 0 && ens_existe(utile,i) && ens_existe(utile,j)))
+		a.transition[i][j] = 0;
 }
 
 
@@ -195,3 +188,11 @@ void afn_determiniser(afn a)
 
 }
 
+void afn_afficherTrans(afn a)
+{
+    int i,j;
+    for(i=1;i<TAILLE;i++)
+	for(j=1;j<TAILLE;j++)
+	    if(a.transition[i][j] != 0)
+		fprintf(stdout,"(%d,%c,%d)\n",i,a.transition[i][j],j);
+}
