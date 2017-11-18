@@ -8,6 +8,7 @@
 
 
 #include "ensemble.h"
+#include "pile.h"
 
 typedef struct
 {

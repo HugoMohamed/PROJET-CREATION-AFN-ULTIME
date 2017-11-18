@@ -1,4 +1,4 @@
-#include "afn.h"
+#include "ensemble.h"
 
 typedef int pile[TAILLE];
 

@@ -1,4 +1,4 @@
-#include "pile.h"
+#include "afn.h"
 
 int main(int argc, char *argv[])
 {
