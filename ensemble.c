@@ -128,3 +128,10 @@ int ens_premierElement(ensemble a)
 	    return i;
     return 0;
 }
+
+void ens_recopierEnsemble(ensemble a, ensemble b)
+{
+  int i;
+  for(i=0;i<TAILLE;i++)
+    b[i]=a[i];
+}

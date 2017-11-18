@@ -4,8 +4,8 @@ int main(int argc, char *argv[])
 {
     /*int tab[TAILLE]={5,6,8};
       int tabA[TAILLE] = {4,5,6,89};
-      int tabB[TAILLE] = {6,7,8,9,12,89};
-      int i;*/
+      int tabB[TAILLE] = {6,7,8,9,12,89};*/
+    int i;
     afn a;
     pile p;
     ensemble dep,succ,cor[TAILLE];
@@ -16,6 +16,10 @@ int main(int argc, char *argv[])
     afn_initAfn(&a);
     afn_successeurPartie(a,dep,'a',succ);
     ens_afficher(succ);
+    ens_recopierEnsemble(succ,cor[1]);
+    afn_successeurPartie(a,dep,'b',succ);
+    ens_afficher(succ);
+    ens_recopierEnsemble(succ,cor[2]);
     /*ens_afficher(a.transition[1][1]);
     
       afn_afficherTrans(a);

@@ -42,3 +42,6 @@ void ens_priveDe(ensemble a, ensemble b);
 
 //Renvoie le premier élement de a
 int ens_premierElement(ensemble a);
+
+//Recopie l'ensemble a dans l'ensemble b
+void ens_recopierEnsemble(ensemble a, ensemble b);

@@ -79,6 +79,7 @@ void afn_initAfn(afn *a)
 void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 {
     int i,j;
+    ens_initVide(succ);
     for(i=1;i<=TAILLE;i++)
 	if(depart[i])
 	    for(j=1;j<TAILLE;j++)
