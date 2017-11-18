@@ -76,6 +76,7 @@ void afn_initAfn(afn *a)
 
 }
 
+//Fonctionne
 void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 {
     int i,j;
@@ -87,12 +88,15 @@ void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 		    ens_ajouterElement(succ,j);
 }
 
-
+//Fonctionne pas :'(
+//a l'afn de base, b l'afd, corres un tableau d'ensemble
+//les états i de b correspondent aux ensembles corres[i]
+//exemple: b[1]=1 => état 1 de b = corres[1] = {x,y,...}
 void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 {
     int i,j,lettre,uni,sommet;
     ensemble succ;
-
+    //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b (afn determinisé)
     pile_initVide(p);
     ens_recopierEnsemble(a.initial,corres[1]);
     ens_ajouterElement(b->initial,1);
@@ -102,20 +106,33 @@ void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 
     while(p[0] > 0)
     {
+      
+	//On traite les transition partant de l'état au sommet de la pile
 	sommet = pile_hautPile(p);
 	pile_depiler(p);
+	
+	//On traite toutes les lettres
 	for(lettre=1;lettre<TAILLE;lettre++)
 	{
 	    afn_successeurPartie(a,corres[sommet],lettre+96,succ);
+	    
+	    //Si des transitions (et donc des successeurs) existent
 	    if(succ[0] > 0)
 	    {
+		//On considère l'ensemble des successeurs unique
 		uni = 1;
+
+		//On vérifie l'unicité
 		for(j=1;j<TAILLE;j++)
 		    if(ens_identique(corres[j],succ))
 		    {
+			//Si l'ensemble existe déjà dans corres[], on fait la
+			//transition ver cet ensemble
 			ens_ajouterElement(b->transition[sommet][j],lettre);
 			uni = 0;
 		    }
+		//Si l'ensemble est unique, on le recopie dans corres[] et on
+		//l'ajoute à la pile
 		if(uni == 1)
 		{
 		    pile_empiler(p,i);
@@ -126,6 +143,7 @@ void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 	    }
 	}
     }
+    //On rempli les états finaux de b
     for(i=1;i<=a.final[0];)
     {
 	if(ens_existe(a.final,i))
