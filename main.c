@@ -22,8 +22,9 @@ int main(int argc, char *argv[])
     pile_empiler(p,1);
     pile_empiler(p,3);
     pile_afficher(p);
+    fprintf(stdout,"%d\n",pile_hautPile(p));
     pile_depiler(p);
     pile_afficher(p);
-    
+    fprintf(stdout,"%d\n",pile_hautPile(p));
     exit(0);
 } 

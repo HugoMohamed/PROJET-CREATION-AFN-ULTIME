@@ -32,3 +32,11 @@ void pile_afficher(pile p)
 	fprintf(stdout,"%d ",p[i]);
     fprintf(stdout,"\n");
 }
+
+int pile_hautPile(pile p)
+{
+    int i = 1;
+    while(p[i] > 0)
+	i++;
+    return p[i-1];
+}
