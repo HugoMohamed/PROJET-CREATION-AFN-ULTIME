@@ -32,7 +32,7 @@ void afn_coAccessibles(afn a, ensemble coAccessible);
 void afn_emonder(afn a);
 */
 // Determinise l'AFN a
-void afn_determiniser(afn a);
+void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE]);
 /*
 //Calcule les successeurs d'un état
 void afn_successeur(afn a, int etat, ensemble succ);

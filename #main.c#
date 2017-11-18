@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	ens_initVide(corres[i]);
     afn_initAfn(&a);
     afn_initAfn(&b);
-    afn_determiniser(a,&b,p,corres);
+    afn_determiniser(a,&b,p,&corres);
     ens_afficher(b.initial);
     ens_afficher(b.final);
     /*int tab[TAILLE]={5,6,8};

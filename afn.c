@@ -88,10 +88,58 @@ void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 }
 
 
-void afn_determiniser(afn a)
+void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 {
+    int i,j,lettre,uni,sommet;
+    ensemble succ;
 
+    pile_initVide(p);
+    ens_recopierEnsemble(a.initial,corres[1]);
+    ens_ajouterElement(b->initial,1);
+    pile_empiler(p,1);
+    
+    i = 2;
+
+    while(p[0] > 0)
+    {
+	sommet = pile_hautPile(p);
+	pile_depiler(p);
+	for(lettre=1;lettre<TAILLE;lettre++)
+	{
+	    afn_successeurPartie(a,corres[sommet],lettre+96,succ);
+	    if(succ[0] > 0)
+	    {
+		uni = 1;
+		for(j=1;j<TAILLE;j++)
+		    if(ens_identique(corres[j],succ))
+		    {
+			ens_ajouterElement(b->transition[sommet][j],lettre);
+			uni = 0;
+		    }
+		if(uni == 1)
+		{
+		    pile_empiler(p,i);
+		    ens_recopierEnsemble(succ,corres[i]);
+		    ens_ajouterElement(b->transition[sommet][i],lettre);
+		    i++;
+		}
+	    }
+	}
+    }
+    for(i=1;i<=a.final[0];)
+    {
+	if(ens_existe(a.final,i))
+	{
+	    for(j=1;j<TAILLE;j++)
+	    {
+		if(ens_existe(corres[j],i))
+		    ens_ajouterElement(b->final,j);
+	    }
+	    i++;
+	}
+    }
 }
+
 
 void afn_afficherTrans(afn a)
 {/*

@@ -135,3 +135,13 @@ void ens_recopierEnsemble(ensemble a, ensemble b)
   for(i=0;i<TAILLE;i++)
     b[i]=a[i];
 }
+
+int ens_identique(ensemble a, ensemble b)
+{
+    int i,ide;
+    ide = 1;
+    for(i=1;i<TAILLE;i++)
+	if(a[i] != b[i])
+	    ide = 0;
+    return ide;
+}

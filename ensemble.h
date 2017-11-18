@@ -45,3 +45,6 @@ int ens_premierElement(ensemble a);
 
 //Recopie l'ensemble a dans l'ensemble b
 void ens_recopierEnsemble(ensemble a, ensemble b);
+
+//Renvoie 1 si a et b sont identiques, 0 sinon
+int ens_identique(ensemble a, ensemble b);
