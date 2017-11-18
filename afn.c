@@ -76,6 +76,17 @@ void afn_initAfn(afn *a)
 
 }
 
+void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
+{
+    int i,j;
+    for(i=1;i<=TAILLE;i++)
+	if(depart[i])
+	    for(j=1;j<TAILLE;j++)
+		if(ens_existe(a.transition[i][j],(c-96)))
+		    ens_ajouterElement(succ,j);
+}
+
+
 void afn_determiniser(afn a)
 {
 

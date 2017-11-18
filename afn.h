@@ -19,6 +19,8 @@ typedef struct
 
 //Crée et remplis un afn
 void afn_initAfn(afn *a);
+
+void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ);
 /*
 // Calcul l'ensemble des états accessibles de a
 void afn_accessibles(afn a, ensemble accessible);
