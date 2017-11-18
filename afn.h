@@ -20,6 +20,8 @@ typedef struct
 //Crée et remplis un afn
 void afn_initAfn(afn *a);
 
+void afn_initAfnVide(afn *a);
+
 void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ);
 /*
 // Calcul l'ensemble des états accessibles de a
@@ -32,7 +34,7 @@ void afn_coAccessibles(afn a, ensemble coAccessible);
 void afn_emonder(afn a);
 */
 // Determinise l'AFN a
-void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE]);
+void afn_determiniser();
 /*
 //Calcule les successeurs d'un état
 void afn_successeur(afn a, int etat, ensemble succ);

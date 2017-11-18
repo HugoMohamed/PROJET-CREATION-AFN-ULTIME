@@ -22,6 +22,20 @@ void viderBuffer()
     }
 }
 
+void afn_initAfnVide(afn *a)
+{
+    int i,j;
+
+    for(i=0;i<TAILLE;i++)
+    {
+	a->initial[i] = 0;
+	a->final[i] = 0;
+	for(j=0;j<TAILLE;j++)
+	    ens_initVide(a->transition[i][j]);
+
+    }
+}
+
 void afn_initAfn(afn *a)
 {
 
@@ -79,29 +93,42 @@ void afn_initAfn(afn *a)
 //Fonctionne
 void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 {
+
     int i,j;
     ens_initVide(succ);
+
     for(i=1;i<=TAILLE;i++)
 	if(depart[i])
 	    for(j=1;j<TAILLE;j++)
+
 		if(ens_existe(a.transition[i][j],(c-96)))
 		    ens_ajouterElement(succ,j);
+	   
 }
 
-//Fonctionne pas :'(
+//Fonctionne quand on fait toutes fonctions en interne, mais pas avec l'appel aux fonctions
 //a l'afn de base, b l'afd, corres un tableau d'ensemble
 //les états i de b correspondent aux ensembles corres[i]
-//exemple: b[1]=1 => état 1 de b = corres[1] = {x,y,...}
-void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
+//exemple: b[2]=1 => état 2 = corres[2] = {x,y,...}
+void afn_determiniser()
 {
-    int i,j,lettre,uni,sommet;
-    ensemble succ;
-    //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b (afn determinisé)
+
+    int i,j,k,n,m,lettre,uni,sommet;
+    ensemble succ,corres[TAILLE];
+    pile p;
+    afn b,a;
+    afn_initAfn(&a);
+    afn_initAfnVide(&b);
+    
+    for(i=0;i<=TAILLE;i++)
+	ens_initVide(corres[i]);
+    
+    //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b
     pile_initVide(p);
     ens_recopierEnsemble(a.initial,corres[1]);
-    ens_ajouterElement(b->initial,1);
+    ens_ajouterElement(b.initial,1);
     pile_empiler(p,1);
-    
+
     i = 2;
 
     while(p[0] > 0)
@@ -110,12 +137,21 @@ void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 	//On traite les transition partant de l'état au sommet de la pile
 	sommet = pile_hautPile(p);
 	pile_depiler(p);
-	
+
 	//On traite toutes les lettres
 	for(lettre=1;lettre<TAILLE;lettre++)
 	{
-	    afn_successeurPartie(a,corres[sommet],lettre+96,succ);
-	    
+
+	    ens_initVide(succ);
+
+	    for(n=1;n<=TAILLE;n++)
+		if(ens_existe(corres[sommet],n))
+		    for(m=1;m<TAILLE;m++)
+
+			if(ens_existe(a.transition[n][m],lettre))
+			    ens_ajouterElement(succ,m);
+	    // afn_successeurPartie(a,corres[sommet],(char)(lettre+96),succ);
+
 	    //Si des transitions (et donc des successeurs) existent
 	    if(succ[0] > 0)
 	    {
@@ -128,7 +164,7 @@ void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 		    {
 			//Si l'ensemble existe déjà dans corres[], on fait la
 			//transition ver cet ensemble
-			ens_ajouterElement(b->transition[sommet][j],lettre);
+			ens_ajouterElement(b.transition[sommet][j],lettre);
 			uni = 0;
 		    }
 		//Si l'ensemble est unique, on le recopie dans corres[] et on
@@ -137,38 +173,51 @@ void afn_determiniser(afn a, afn *b, pile p, ensemble corres[TAILLE])
 		{
 		    pile_empiler(p,i);
 		    ens_recopierEnsemble(succ,corres[i]);
-		    ens_ajouterElement(b->transition[sommet][i],lettre);
+		    ens_ajouterElement(b.transition[sommet][i],lettre);
 		    i++;
 		}
 	    }
 	}
     }
+    n = i;
     //On rempli les états finaux de b
-    for(i=1;i<=a.final[0];)
+    for(i=1;i<TAILLE;i++)
     {
 	if(ens_existe(a.final,i))
 	{
 	    for(j=1;j<TAILLE;j++)
 	    {
 		if(ens_existe(corres[j],i))
-		    ens_ajouterElement(b->final,j);
+		    ens_ajouterElement(b.final,j);
 	    }
-	    i++;
 	}
+    }
+    //Affiche les transitions
+    for(i=1;i<TAILLE;i++)
+	for(j=1;j<TAILLE;j++)
+	    for(k=1;k<TAILLE;k++)
+		if(ens_existe(b.transition[i][j],k))
+		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
+    //Affiche les correspondances
+    for(i=1;i<n;i++)
+    {
+	fprintf(stdout,"%d = ",i);
+	ens_afficher(corres[i]);
     }
 }
 
 
 void afn_afficherTrans(afn a)
-{/*
-    int i,j;
+{
+    int i,j,k;
     for(i=1;i<TAILLE;i++)
 	for(j=1;j<TAILLE;j++)
-	    if(a.transition[i][j] != 0)
-	    fprintf(stdout,"(%d,%c,%d)\n",i,a.transition[i][j],j);*/
+	    for(k=1;k<TAILLE;k++)
+		if(ens_existe(a.transition[i][j],k))
+		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
 }
-/*  
- 
+
+/*
 void afn_successeur(afn a, int etat, ensemble succ)
 {
     int i,j;

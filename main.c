@@ -2,22 +2,19 @@
 
 int main(int argc, char *argv[])
 {
-    int i;
-    afn a,b;
-    pile p;
-    ensemble corres[TAILLE];
-    for(i=0;i<=TAILLE;i++)
-	ens_initVide(corres[i]);
-    afn_initAfn(&a);
-    afn_initAfn(&b);
-    afn_determiniser(a,&b,p,corres);
-    ens_afficher(b.initial);
-    ens_afficher(b.final);
-    /*int tab[TAILLE]={5,6,8};
+   
+
+
+
+
+    afn_determiniser();
+
+    /* int tab[TAILLE]={5,6,8};
       int tabA[TAILLE] = {4,5,6,89};
       int tabB[TAILLE] = {6,7,8,9,12,89};
     afn a;
     pile p;
+    afn a;
     ensemble dep,succ,cor[TAILLE];
     ens_initVide(succ);
     ens_initVide(dep);
@@ -30,7 +27,8 @@ int main(int argc, char *argv[])
     afn_successeurPartie(a,dep,'b',succ);
     ens_afficher(succ);
     ens_recopierEnsemble(succ,cor[2]);
-    ens_afficher(a.transition[1][1]);
+    
+     ens_afficher(a.transition[1][1]);
     
       afn_afficherTrans(a);
       afn_emonder(a);
