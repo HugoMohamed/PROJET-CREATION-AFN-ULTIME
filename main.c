@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    int i,j,k,n;
+    int i,n;
     ensemble corres[TAILLE];
     afn a,b;
     afn_initAfn(&a);
@@ -10,11 +10,7 @@ int main(int argc, char *argv[])
     n = afn_determiniser(&a,&b,corres);
     // affiche les transitions
     fprintf(stdout,"Liste des transitions :\n");
-    for(i=1;i<TAILLE;i++)
-	for(j=1;j<TAILLE;j++)
-	    for(k=1;k<TAILLE;k++)
-		if(ens_existe(b.transition[i][j],k))
-		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
+    afn_afficherTrans(&b);
     // correspondances
     fprintf(stdout,"Avec les correspondances :\n");
     for(i=1;i<n;i++)

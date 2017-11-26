@@ -47,4 +47,4 @@ void afn_predecesseur(afn a, int etat, ensemble pre);
 int afn_estReconnu(afn a, char * mot);
 
 // Affiche toutes les transitions de l'afn a
-void afn_afficherTrans(afn a);
+void afn_afficherTrans(afn *a);

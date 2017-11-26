@@ -108,7 +108,7 @@ void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 //exemple: b[2]=1 => état 2 = corres[2] = {x,y,...}
 int afn_determiniser(afn *a, afn *b,ensemble *corres)
 {
-    int i,j,k,n,m,lettre,uni,sommet;
+    int i,j,n,m,lettre,uni,sommet;
     ensemble succ;
     pile p;
     
@@ -188,13 +188,13 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
 }
 
 
-void afn_afficherTrans(afn a)
+void afn_afficherTrans(afn *a)
 {
     int i,j,k;
     for(i=1;i<TAILLE;i++)
 	for(j=1;j<TAILLE;j++)
 	    for(k=1;k<TAILLE;k++)
-		if(ens_existe(a.transition[i][j],k))
+		if(ens_existe(a->transition[i][j],k))
 		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
 }
 /*
