@@ -2,14 +2,28 @@
 
 int main(int argc, char *argv[])
 {
-   
+    int i,j,k,n;
+    ensemble corres[TAILLE];
+    afn a,b;
+    afn_initAfn(&a);
+    afn_initAfnVide(&b);
+    n = afn_determiniser(&a,&b,corres);
+    // affiche les transitions
+    fprintf(stdout,"Liste des transitions :\n");
+    for(i=1;i<TAILLE;i++)
+	for(j=1;j<TAILLE;j++)
+	    for(k=1;k<TAILLE;k++)
+		if(ens_existe(b.transition[i][j],k))
+		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
+    // correspondances
+    fprintf(stdout,"Avec les correspondances :\n");
+    for(i=1;i<n;i++)
+    {
+	fprintf(stdout,"%d = ",i);
+	ens_afficher(corres[i]);
+    }
 
-
-
-
-    afn_determiniser();
-
-    /* int tab[TAILLE]={5,6,8};
+/*int tab[TAILLE]={5,6,8};
       int tabA[TAILLE] = {4,5,6,89};
       int tabB[TAILLE] = {6,7,8,9,12,89};
     afn a;

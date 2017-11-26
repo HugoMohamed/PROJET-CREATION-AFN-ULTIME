@@ -34,7 +34,7 @@ void afn_coAccessibles(afn a, ensemble coAccessible);
 void afn_emonder(afn a);
 */
 // Determinise l'AFN a
-void afn_determiniser();
+int afn_determiniser(afn *a, afn *b, ensemble *corres);
 /*
 //Calcule les successeurs d'un état
 void afn_successeur(afn a, int etat, ensemble succ);
@@ -42,6 +42,7 @@ void afn_successeur(afn a, int etat, ensemble succ);
 //Calcule les prédecesseurs d'un état
 void afn_predecesseur(afn a, int etat, ensemble pre);
 */
+
 // Renvoie 1 si le mot est reconnu par l'afn a
 int afn_estReconnu(afn a, char * mot);
 

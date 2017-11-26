@@ -3,14 +3,10 @@
  * Nom du fichier : afn.c
  *
  * Description : Gère les différentes fonctions qui vont permettre
- * la déterminisation d'un AFN
- *
+ * la reconnaissance d'un mot et la déterminisation d'un AFN *
  *
  ******************************************/
 
-// Déteriniser un AFN A c'est émonder l'automate des parties de A
-
-// afd = afn_emonder(afn_partie); (un truc du style)
 #include "afn.h"
 
 void viderBuffer()
@@ -110,23 +106,19 @@ void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 //a l'afn de base, b l'afd, corres un tableau d'ensemble
 //les états i de b correspondent aux ensembles corres[i]
 //exemple: b[2]=1 => état 2 = corres[2] = {x,y,...}
-void afn_determiniser()
+int afn_determiniser(afn *a, afn *b,ensemble *corres)
 {
-
     int i,j,k,n,m,lettre,uni,sommet;
-    ensemble succ,corres[TAILLE];
+    ensemble succ;
     pile p;
-    afn b,a;
-    afn_initAfn(&a);
-    afn_initAfnVide(&b);
     
     for(i=0;i<=TAILLE;i++)
 	ens_initVide(corres[i]);
     
     //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b
     pile_initVide(p);
-    ens_recopierEnsemble(a.initial,corres[1]);
-    ens_ajouterElement(b.initial,1);
+    ens_recopierEnsemble(a->initial,corres[1]);
+    ens_ajouterElement(b->initial,1);
     pile_empiler(p,1);
 
     i = 2;
@@ -148,7 +140,7 @@ void afn_determiniser()
 		if(ens_existe(corres[sommet],n))
 		    for(m=1;m<TAILLE;m++)
 
-			if(ens_existe(a.transition[n][m],lettre))
+			if(ens_existe(a->transition[n][m],lettre))
 			    ens_ajouterElement(succ,m);
 	    // afn_successeurPartie(a,corres[sommet],(char)(lettre+96),succ);
 
@@ -164,7 +156,7 @@ void afn_determiniser()
 		    {
 			//Si l'ensemble existe déjà dans corres[], on fait la
 			//transition ver cet ensemble
-			ens_ajouterElement(b.transition[sommet][j],lettre);
+			ens_ajouterElement(b->transition[sommet][j],lettre);
 			uni = 0;
 		    }
 		//Si l'ensemble est unique, on le recopie dans corres[] et on
@@ -173,7 +165,7 @@ void afn_determiniser()
 		{
 		    pile_empiler(p,i);
 		    ens_recopierEnsemble(succ,corres[i]);
-		    ens_ajouterElement(b.transition[sommet][i],lettre);
+		    ens_ajouterElement(b->transition[sommet][i],lettre);
 		    i++;
 		}
 	    }
@@ -183,27 +175,16 @@ void afn_determiniser()
     //On rempli les états finaux de b
     for(i=1;i<TAILLE;i++)
     {
-	if(ens_existe(a.final,i))
+	if(ens_existe(a->final,i))
 	{
 	    for(j=1;j<TAILLE;j++)
 	    {
 		if(ens_existe(corres[j],i))
-		    ens_ajouterElement(b.final,j);
+		    ens_ajouterElement(b->final,j);
 	    }
 	}
     }
-    //Affiche les transitions
-    for(i=1;i<TAILLE;i++)
-	for(j=1;j<TAILLE;j++)
-	    for(k=1;k<TAILLE;k++)
-		if(ens_existe(b.transition[i][j],k))
-		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
-    //Affiche les correspondances
-    for(i=1;i<n;i++)
-    {
-	fprintf(stdout,"%d = ",i);
-	ens_afficher(corres[i]);
-    }
+    return n;
 }
 
 
@@ -216,7 +197,12 @@ void afn_afficherTrans(afn a)
 		if(ens_existe(a.transition[i][j],k))
 		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
 }
-
+/*
+int afn_estReconnu(afn a, char * mot)
+{
+    
+}
+*/
 /*
 void afn_successeur(afn a, int etat, ensemble succ)
 {
