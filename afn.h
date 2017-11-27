@@ -29,13 +29,13 @@ void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ);
 int afn_determiniser(afn *a, afn *b, ensemble *corres);
 
 // Renvoie 1 si le mot est reconnu par l'afn a
-int afn_estReconnu(afn a, char * mot);
+int afn_estReconnu(afn *a, char *mot);
 
 // Affiche toutes les transitions de l'afn a
 void afn_afficherTrans(afn *a);
 
 // Renvoie l'état q de la transition (p,x,q)
-int afn_existeTransition(afn *a,int p,char x)
+int afn_existeTransition(afn *a,int p,char x);
 
 /*
 // Calcul l'ensemble des états accessibles de a

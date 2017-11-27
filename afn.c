@@ -201,32 +201,30 @@ void afn_afficherTrans(afn *a)
 
 int afn_estReconnu(afn *a, char *mot)
 {
-    afn b;
-    ensemble corres[TAILLE];
-    int n,i=0,j;
+    int i=0;
     pile p;
 
     pile_initVide(p);
-    for(j=0;j<TAILLE;j++)
-	corres[j]=0;
+
+    pile_empiler(p,1);
     
-    while(i != '\0');
+    while(mot[i] != '\0');
     {
-	pile_empiler(p,afn_existeTransition(&a,pile_hautPile(p),mot[i]));
 	// si l'état est final et qu'on est a la fin du mot
-	if(ens_existe(a->final,pile_hautPile(p) && i == strlen(mot)))
+	if(ens_existe(a->final,pile_hautPile(p)) && i == strlen(mot))
 	    return 1;
-	// si l'état n'est pas final et qu'on est a la fin du mot
-	else if(!(ens_existe(a->final,pile_hautPile(p)) && i == strlen(mot)))
-	    return 0;
-	
+	else if(!(ens_existe(a->final,pile_hautPile(p))) && i == strlen(mot))
+		return 0;
+	else
+	    pile_empiler(p,afn_existeTransition(a,pile_hautPile(p),mot[i]));
+	i++;
     }
     // on empile l'état ou il existe une transition (p,x,q) avec p appartient a I et x = mot[0]
     // on va au bout d'un chemin en faisant a chaque fois mot[i] i++
     // on renvoie 0 si la pile devient vide
     // on renvoie 1 si on trouve une transition (p,x,q) avec x = derniere lettre de m, et q appartient a F.
     
-    
+    return 0;
     
 }
 
@@ -234,8 +232,9 @@ int afn_existeTransition(afn *a,int p,char x)
 {
     int i;
     for(i=1;i<TAILLE;i++)
-	if(ens_existe(a.transition[p][i],x))
+	if(ens_existe(a->transition[p][i],x))
 	    return i;
+    return 0;
 }
 
 /*
