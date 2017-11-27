@@ -12,8 +12,6 @@ int main(int argc, char *argv[])
 	fprintf(stderr,"Usage :\n%s 1 : determinisation\n%s 2 : reconnaissance d'un mot\n",argv[0],argv[0]);
 	exit(-1);
     }
-    afn_initAfn(&a);
-    afn_initAfnVide(&b);
     n = afn_determiniser(&a,&b,corres);
 
     if(atoi(argv[1]) == 1)

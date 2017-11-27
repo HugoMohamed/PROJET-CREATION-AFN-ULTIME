@@ -137,14 +137,13 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
 
 	    ens_initVide(succ);
 
-	    for(n=1;n<=TAILLE;n++)
+	    for(n=1;n<TAILLE;n++)
 		if(ens_existe(corres[sommet],n))
 		    for(m=1;m<TAILLE;m++)
 
 			if(ens_existe(a->transition[n][m],lettre))
 			    ens_ajouterElement(succ,m);
-	    // afn_successeurPartie(a,corres[sommet],(char)(lettre+96),succ);
-
+	    
 	    //Si des transitions (et donc des successeurs) existent
 	    if(succ[0] > 0)
 	    {
@@ -185,16 +184,7 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
 	    }
 	}
     }
-    for(i=1;i<TAILLE;i++)
-	for(j=1;j<TAILLE;j++)
-	    for(m=1;m<TAILLE;m++)
-		if(ens_existe(b->transition[i][j],m))
-		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)m+96,j);
-    for(i=1;i<n;i++)
-    {
-	fprintf(stdout,"%d = ",i);
-	ens_afficher(corres[i]);
-    }
+
     return n;
 }
 
