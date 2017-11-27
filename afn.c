@@ -3,10 +3,11 @@
  * Nom du fichier : afn.c
  *
  * Description : Gère les différentes fonctions qui vont permettre
- * la reconnaissance d'un mot et la déterminisation d'un AFN *
+ * la reconnaissance d'un mot et la déterminisation d'un AFN
  *
  ******************************************/
 
+#include <string.h>
 #include "afn.h"
 
 void viderBuffer()
@@ -197,119 +198,153 @@ void afn_afficherTrans(afn *a)
 		if(ens_existe(a->transition[i][j],k))
 		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)k+96,j);
 }
-/*
-int afn_estReconnu(afn a, char * mot)
+
+int afn_estReconnu(afn *a, char *mot)
 {
+    afn b;
+    ensemble corres[TAILLE];
+    int n,i=0,j;
+    pile p;
+
+    pile_initVide(p);
+    for(j=0;j<TAILLE;j++)
+	corres[j]=0;
     
-}
-*/
-/*
-void afn_successeur(afn a, int etat, ensemble succ)
-{
-    int i,j;
-    succ[0]=0;
-    
-    for(i=1;i<TAILLE;i++)
+    while(i != '\0');
     {
-	for(j=0;j<TAILLE
-	if(a.transition[etat][i] > 0)
-	{
-	    succ[i] = 1;
-	    succ[0]++;
-	}
-	else
-	    succ[i] = 0;
-	    }
+	pile_empiler(p,afn_existeTransition(&a,pile_hautPile(p),mot[i]));
+	// si l'état est final et qu'on est a la fin du mot
+	if(ens_existe(a->final,pile_hautPile(p) && i == strlen(mot)))
+	    return 1;
+	// si l'état n'est pas final et qu'on est a la fin du mot
+	else if(!(ens_existe(a->final,pile_hautPile(p)) && i == strlen(mot)))
+	    return 0;
+	
+    }
+    // on empile l'état ou il existe une transition (p,x,q) avec p appartient a I et x = mot[0]
+    // on va au bout d'un chemin en faisant a chaque fois mot[i] i++
+    // on renvoie 0 si la pile devient vide
+    // on renvoie 1 si on trouve une transition (p,x,q) avec x = derniere lettre de m, et q appartient a F.
+    
+    
+    
 }
 
-
-void afn_predecesseur(afn a, int etat, ensemble pre)
+int afn_existeTransition(afn *a,int p,char x)
 {
     int i;
-    pre[0]=0;
-
     for(i=1;i<TAILLE;i++)
-    {
-	if(a.transition[i][etat] > 0)
-	{
-	    pre[i] = 1;
-	    pre[0]++;
-	}
-	else
-	    pre[i] = 0;
-	    }
+	if(ens_existe(a.transition[p][i],x))
+	    return i;
 }
 
-
-void afn_accessibles(afn a, ensemble accessible)
-{
-    ensemble at,dt,succ;
-    int i,p;
+/*
+  void afn_successeur(afn a, int etat, ensemble succ)
+  {
+  int i,j;
+  succ[0]=0;
     
-    for(i=0;i<TAILLE;i++)
-	at[i] = a.initial[i];
-    ens_initVide(dt); // états déjà traités
+  for(i=1;i<TAILLE;i++)
+  {
+  for(j=0;j<TAILLE
+  if(a.transition[etat][i] > 0)
+  {
+  succ[i] = 1;
+  succ[0]++;
+  }
+  else
+  succ[i] = 0;
+  }
+  }
 
-    while(at[0] != 0)
-    {
-	p = ens_premierElement(at);
-	afn_successeur(a,p,succ);
-	ens_ajouterElement(dt,p);
-	ens_enleverElement(at,p);
-	ens_priveDe(succ,dt);
-	ens_union(at,succ,at);
+
+  void afn_predecesseur(afn a, int etat, ensemble pre)
+  {
+  int i;
+  pre[0]=0;
+
+  for(i=1;i<TAILLE;i++)
+  {
+  if(a.transition[i][etat] > 0)
+  {
+  pre[i] = 1;
+  pre[0]++;
+  }
+  else
+  pre[i] = 0;
+  }
+  }
+
+
+  void afn_accessibles(afn a, ensemble accessible)
+  {
+  ensemble at,dt,succ;
+  int i,p;
+    
+  for(i=0;i<TAILLE;i++)
+  at[i] = a.initial[i];
+  ens_initVide(dt); // états déjà traités
+
+  while(at[0] != 0)
+  {
+  p = ens_premierElement(at);
+  afn_successeur(a,p,succ);
+  ens_ajouterElement(dt,p);
+  ens_enleverElement(at,p);
+  ens_priveDe(succ,dt);
+  ens_union(at,succ,at);
 	
-    }
-    for(i=0;i<TAILLE;i++)
-	accessible[i] = dt[i];
+  }
+  for(i=0;i<TAILLE;i++)
+  accessible[i] = dt[i];
  
-}
+  }
 
 
-void afn_coAccessibles(afn a, ensemble coAccessible)
-{
-    ensemble at,dt,pre;
-    int i,q;
+  void afn_coAccessibles(afn a, ensemble coAccessible)
+  {
+  ensemble at,dt,pre;
+  int i,q;
     
-    for(i=0;i<TAILLE;i++)
-	at[i] = a.final[i];
-    ens_initVide(dt); // états déjà traités
+  for(i=0;i<TAILLE;i++)
+  at[i] = a.final[i];
+  ens_initVide(dt); // états déjà traités
 
-    while(at[0] != 0)
-    {
-	q = ens_premierElement(at);
-	afn_predecesseur(a,q,pre);
-	ens_ajouterElement(dt,q);
-	ens_enleverElement(at,q);
-	ens_priveDe(pre,dt);
-	ens_union(at,pre,at);
+  while(at[0] != 0)
+  {
+  q = ens_premierElement(at);
+  afn_predecesseur(a,q,pre);
+  ens_ajouterElement(dt,q);
+  ens_enleverElement(at,q);
+  ens_priveDe(pre,dt);
+  ens_union(at,pre,at);
 	
-    }
-    for(i=0;i<TAILLE;i++)
-	coAccessible[i] = dt[i];
+  }
+  for(i=0;i<TAILLE;i++)
+  coAccessible[i] = dt[i];
  
-}
+  }
     
 
-void afn_emonder(afn a)
-{
-    ensemble utile,acc,coacc;
-    int i,j;
+  void afn_emonder(afn a)
+  {
+  ensemble utile,acc,coacc;
+  int i,j;
     
-    afn_accessibles(a,acc);
-    afn_coAccessibles(a,coacc);
+  afn_accessibles(a,acc);
+  afn_coAccessibles(a,coacc);
 
-    ens_intersection(acc,coacc,utile); // L'ensemble des états utiles
+  ens_intersection(acc,coacc,utile); // L'ensemble des états utiles
 
-    ens_intersection(utile,a.initial,a.initial);
-    ens_intersection(utile,a.final,a.final);
+  ens_intersection(utile,a.initial,a.initial);
+  ens_intersection(utile,a.final,a.final);
 
-    // Calcul des transition émondée.
-    for(i=1;i<TAILLE;i++)
-	for(j=1;j<TAILLE;j++)
-	    if(!(a.transition[i][j] != 0 && ens_existe(utile,i) && ens_existe(utile,j)))
-	    a.transition[i][j] = 0;
-}
+  // Calcul des transition émondée.
+  for(i=1;i<TAILLE;i++)
+  for(j=1;j<TAILLE;j++)
+  if(!(a.transition[i][j] != 0 && ens_existe(utile,i) && ens_existe(utile,j)))
+  a.transition[i][j] = 0;
+  }
 */
 
 
