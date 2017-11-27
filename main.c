@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
     int i,n;
     ensemble corres[TAILLE];
     afn a,b;
-    char *mot;
+    char mot[TAILLE];
 
     if(argc < 2)
     {
@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
     }
     afn_initAfn(&a);
     afn_initAfnVide(&b);
-    n = afn_determiniser(&a,&b,*corres);
+    n = afn_determiniser(&a,&b,corres);
 
-    if(argv[1] == 1)
+    if(atoi(argv[1]) == 1)
     {
 	// affiche les transitions
 	fprintf(stdout,"Liste des transitions :\n");
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	    ens_afficher(corres[i]);
 	}
     }
-    else if(argv[1] == 2)
+    else if(atoi(argv[1]) == 2)
     {
 	fprintf(stdout,"Entrez le mot à reconnaitre :\n");
 	fscanf(stdin,"%s",mot);

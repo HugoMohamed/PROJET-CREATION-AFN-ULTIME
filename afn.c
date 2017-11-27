@@ -112,10 +112,10 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
     int i,j,n,m,lettre,uni,sommet;
     ensemble succ;
     pile p;
-    
     for(i=0;i<=TAILLE;i++)
 	ens_initVide(corres[i]);
-    
+    afn_initAfn(a);
+    afn_initAfnVide(b);
     //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b
     pile_initVide(p);
     ens_recopierEnsemble(a->initial,corres[1]);
@@ -184,6 +184,16 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
 		    ens_ajouterElement(b->final,j);
 	    }
 	}
+    }
+    for(i=1;i<TAILLE;i++)
+	for(j=1;j<TAILLE;j++)
+	    for(m=1;m<TAILLE;m++)
+		if(ens_existe(b->transition[i][j],m))
+		    fprintf(stdout,"(%d,%c,%d)\n",i,(char)m+96,j);
+    for(i=1;i<n;i++)
+    {
+	fprintf(stdout,"%d = ",i);
+	ens_afficher(corres[i]);
     }
     return n;
 }
