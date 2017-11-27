@@ -1,0 +1,8 @@
+1
+finaux
+3
+transi
+1 a 1
+1 b 2
+2 a 3
+3 a 3

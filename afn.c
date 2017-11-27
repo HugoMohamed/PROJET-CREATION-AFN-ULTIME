@@ -37,8 +37,13 @@ void afn_initAfn(afn *a)
 {
 
     int i,j,etat1,etat2;
-    char lettre;
-
+    char lettre,ligne[TAILLE];
+    FILE* f;
+    if((f = fopen("afn.txt","r")) == NULL)
+    {
+	fprintf(stderr,"erreur, fichier manquant.\n");
+	exit(-1);
+    }
     for(i=0;i<TAILLE;i++)
     {
 	a->initial[i] = 0;
@@ -48,6 +53,15 @@ void afn_initAfn(afn *a)
 
     }
 
+    while(strcmp(fgets(ligne,TAILLE,f),"finaux"))
+	ens_ajouterElement(a->initial,atoi(ligne));
+    
+    while(strcmp(fgets(ligne,TAILLE,f),"transi"))
+	ens_ajouterElement(a->final,atoi(ligne));
+
+    while(fscanf(f,"%d %c %d",&etat1,&lettre,&etat2) != EOF)
+	ens_ajouterElement(a->transition[etat1][etat2],(int)lettre-96);
+/*
     fprintf(stdout,"états initiaux (entrer une valeur négative pour arrêter) :\n");
     do
     {
@@ -84,7 +98,7 @@ void afn_initAfn(afn *a)
 	    ens_ajouterElement(a->transition[etat1][etat2],(int)lettre-96);
     }
     while(etat1 >= 0);
-
+*/
 }
 
 //Fonctionne
