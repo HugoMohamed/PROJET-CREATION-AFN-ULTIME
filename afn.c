@@ -207,9 +207,11 @@ int afn_estReconnu(afn *a, char *mot)
     pile_initVide(p);
 
     pile_empiler(p,1);
-    
+    printf("deeee\n");
+    printf("%d\n",pile_hautPile(p));
     while(mot[i] != '\0');
     {
+	printf("dtttt\n");
 	// si l'état est final et qu'on est a la fin du mot
 	if(ens_existe(a->final,pile_hautPile(p)) && i == strlen(mot))
 	    return 1;
@@ -223,7 +225,7 @@ int afn_estReconnu(afn *a, char *mot)
     // on va au bout d'un chemin en faisant a chaque fois mot[i] i++
     // on renvoie 0 si la pile devient vide
     // on renvoie 1 si on trouve une transition (p,x,q) avec x = derniere lettre de m, et q appartient a F.
-    
+
     return 0;
     
 }
