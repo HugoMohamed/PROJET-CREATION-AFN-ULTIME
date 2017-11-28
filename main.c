@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     ensemble corres[TAILLE];
     afn a,b;
     char mot[TAILLE];
-
+    
     if(argc < 2)
     {
 	fprintf(stderr,"Usage :\n%s 1 : determinisation\n%s 2 : reconnaissance d'un mot\n",argv[0],argv[0]);

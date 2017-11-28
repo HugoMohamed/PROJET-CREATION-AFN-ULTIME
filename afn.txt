@@ -1,8 +1,10 @@
-1
-finaux
-3
-transi
-1 a 1
-1 b 2
-2 a 3
-3 a 3
+i 1
+f 3
+e 0
+t 1 a 1
+t 1 b 1
+t 1 b 2
+t 2 a 3
+t 3 a 3
+t 3 b 3
+E 0 z 0

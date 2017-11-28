@@ -10,15 +10,6 @@
 #include <string.h>
 #include "afn.h"
 
-void viderBuffer()
-{
-    int c = 0;
-    while (c != '\n' && c != EOF)
-    {
-        c = getchar();
-    }
-}
-
 void afn_initAfnVide(afn *a)
 {
     int i,j;
@@ -36,14 +27,15 @@ void afn_initAfnVide(afn *a)
 void afn_initAfn(afn *a)
 {
 
-    int i,j,etat1,etat2;
-    char lettre,ligne[TAILLE];
+    int b,i,j,etat1,etat2;
+    char c,lettre,ligne[TAILLE];
     FILE* f;
-    if((f = fopen("afn.txt","r")) == NULL)
+    f = fopen("afn.txt","r");
+    if(f == NULL)
     {
 	fprintf(stderr,"erreur, fichier manquant.\n");
 	exit(-1);
-    }
+	}
     for(i=0;i<TAILLE;i++)
     {
 	a->initial[i] = 0;
@@ -52,56 +44,36 @@ void afn_initAfn(afn *a)
 	    ens_initVide(a->transition[i][j]);
 
     }
-
-    while(strcmp(fgets(ligne,TAILLE,f),"finaux"))
-	ens_ajouterElement(a->initial,atoi(ligne));
     
-    while(strcmp(fgets(ligne,TAILLE,f),"transi"))
-	ens_ajouterElement(a->final,atoi(ligne));
+    do
+    {
+	fgets(ligne,TAILLE,f);
+	sscanf(ligne,"%c %d",&c,&b);
+	if(c=='i')
+	{
+	    a->initial[b] = 1;
+	    a->initial[0]++;
+	}
+	if(c=='f')
+	{
+	    a->final[b] = 1;
+	    a->final[0]++;
+	}
+    }
+    while(c!='e');
 
-    while(fscanf(f,"%d %c %d",&etat1,&lettre,&etat2) != EOF)
+    do
+    {
+	fgets(ligne,TAILLE,f);
+	sscanf(ligne,"%c %d %c %d",&c,&etat1,&lettre,&etat2);
+	if(c=='t')
 	ens_ajouterElement(a->transition[etat1][etat2],(int)lettre-96);
-/*
-    fprintf(stdout,"états initiaux (entrer une valeur négative pour arrêter) :\n");
-    do
-    {
-	scanf("%d",&etat1);
-	if(etat1 >= 0)
-	{
-    
-	    a->initial[etat1] = 1;
-	    a->initial[0]++;   
-	}
     }
-    while(etat1 >= 0);
+    while(c!='E');
     
-    viderBuffer();
-    fprintf(stdout,"états finaux (entrer une valeur négative pour arrêter) :\n");
-    do
-    {
-	scanf("%d",&etat1);
-	if(etat1 >= 0)
-	{
-    
-	    a->final[etat1] = 1;
-	    a->final[0]++;   
-	}
-    }
-    while(etat1 >= 0);
-    
-    viderBuffer();
-    fprintf(stdout,"transitions p x q (entrer une valeur négative de p pour arrêter) :\n");
-    do
-    {
-	scanf("%d %c %d",&etat1,&lettre,&etat2);
-	if(etat1 >= 0 && etat2 >=0 && lettre >= 0)
-	    ens_ajouterElement(a->transition[etat1][etat2],(int)lettre-96);
-    }
-    while(etat1 >= 0);
-*/
+    fclose(f);
 }
 
-//Fonctionne
 void afn_successeurPartie(afn a,ensemble depart,char c,ensemble succ)
 {
 
