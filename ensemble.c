@@ -36,7 +36,7 @@ void ens_creerEnsemble(int tableau[],int tailleTableau, ensemble e)
 void ens_afficher(ensemble e)
 {
     int i,j;
-    fprintf(stdout,"{");
+    fprintf(stdout,"{ ");
     for(i=1,j=0;j<e[0];i++)
     {
 	if(e[i] == 1)

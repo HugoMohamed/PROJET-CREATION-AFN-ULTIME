@@ -19,6 +19,10 @@ int main(int argc, char *argv[])
 	// affiche les transitions
 	fprintf(stdout,"Liste des transitions :\n");
 	afn_afficherTrans(&b);
+	fprintf(stdout,"Initiaux : ");
+	ens_afficher(b.initial);
+	fprintf(stdout,"Finaux : ");
+	ens_afficher(b.final);
 	// correspondances
 	fprintf(stdout,"Avec les correspondances :\n");
 	for(i=1;i<n;i++)

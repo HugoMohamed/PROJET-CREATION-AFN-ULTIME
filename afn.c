@@ -98,14 +98,19 @@ int afn_determiniser(afn *a, afn *b,ensemble *corres)
     int i,j,n,m,lettre,uni,sommet;
     ensemble succ;
     pile p;
+    
     for(i=0;i<=TAILLE;i++)
 	ens_initVide(corres[i]);
+    
     afn_initAfn(a);
     afn_initAfnVide(b);
-    //On itinialise la pile, on crée la première partie à traiter, on initialise les initiaux de b
     pile_initVide(p);
+    
     ens_recopierEnsemble(a->initial,corres[1]);
-    ens_ajouterElement(b->initial,1);
+    for(i=1;i<TAILLE;i++)
+	if(ens_existe(corres[1],i))
+	    ens_ajouterElement(b->initial,i);
+    
     pile_empiler(p,1);
 
     i = 2;
